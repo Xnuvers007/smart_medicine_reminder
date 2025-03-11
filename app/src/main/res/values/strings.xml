@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Smart Medicine Reminder</string>
+    <string name="kelompok">Dibuat oleh Indra Dwi A. </string>
+    <string name="medication_name">Medication Name (Nama Obat/Medis)</string>
+    <string name="dosage">Dosage (Dosis)</string>
+    <string name="delete">Delete untuk Menghapus</string>
+    <string name="active">Active/Aktif   </string>
+    <string name="no_medication">No medications yet.\nTap the + button to add one. (Tidak ada obat yang terdaftar.\nKetuk tombol + untuk menambahkan.)</string>
+    <string name="add_medication">Add Medication (Tambah Obat)</string>
+    <string name="Save">Save (Simpan)</string>
+    <string name="Time">Time (Waktu)</string>
+    <string name="catatan">Catatan/Note: Setelah makan (After meal)</string>
+</resources>
