@@ -1,5 +1,6 @@
 package dev.indra.smartmedicinereminder.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,5 +99,12 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
         void onMedicationClick(int position);
         void onDeleteClick(int position);
         void onSwitchChanged(int position, boolean isChecked);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateList(List<Medication> newList) {
+        medicationList.clear();
+        medicationList.addAll(newList);
+        notifyDataSetChanged();
     }
 }

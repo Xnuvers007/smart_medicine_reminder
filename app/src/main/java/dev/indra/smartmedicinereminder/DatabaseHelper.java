@@ -16,10 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "medicine_reminder.db";
     private static final int DATABASE_VERSION = 1;
 
-    // Table name
     private static final String TABLE_MEDICATIONS = "medications";
 
-    // Column names
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_DOSAGE = "dosage";
@@ -52,7 +50,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // Add a new medication
     public long addMedication(Medication medication) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -69,7 +66,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    // Get a single medication
     public Medication getMedication(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -93,7 +89,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return medication;
     }
 
-    // Get all medications
     public List<Medication> getAllMedications() {
         List<Medication> medicationList = new ArrayList<>();
 
@@ -122,7 +117,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return medicationList;
     }
 
-    // Update a medication
     public int updateMedication(Medication medication) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -138,7 +132,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(medication.getId()) });
     }
 
-    // Delete a medication
     public void deleteMedication(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_MEDICATIONS, COLUMN_ID + " = ?",
@@ -146,7 +139,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Get medications count
     public int getMedicationsCount() {
         String countQuery = "SELECT * FROM " + TABLE_MEDICATIONS;
         SQLiteDatabase db = this.getReadableDatabase();

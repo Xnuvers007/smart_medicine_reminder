@@ -27,7 +27,6 @@ public class AddEditMedicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_medication);
 
-        // Enable back button in action bar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -45,12 +44,10 @@ public class AddEditMedicationActivity extends AppCompatActivity {
         medicationId = getIntent().getLongExtra("medication_id", -1);
 
         if (medicationId != -1) {
-            // Edit mode
             setTitle("Edit Medication");
             medication = db.getMedication(medicationId);
             populateFields();
         } else {
-            // Add mode
             setTitle("Add Medication");
             medication = new Medication();
         }
@@ -86,14 +83,12 @@ public class AddEditMedicationActivity extends AppCompatActivity {
         medication.setMinute(minute);
 
         if (medicationId == -1) {
-            // Add new medication
             medication.setActive(true);
             long id = db.addMedication(medication);
             medication.setId(id);
             AlarmHelper.setAlarm(this, medication);
             Toast.makeText(this, "Medication added successfully", Toast.LENGTH_SHORT).show();
         } else {
-            // Update existing medication
             db.updateMedication(medication);
             if (medication.isActive()) {
                 AlarmHelper.updateAlarm(this, medication);
