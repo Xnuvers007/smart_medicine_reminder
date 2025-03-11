@@ -1,6 +1,6 @@
 # Smart Medicine Reminder
 
-Smart Medicine Reminder adalah aplikasi Android yang membantu pengguna mengelola pengingat minum obat dengan fitur CRUD (Create, Read, Update, Delete). Aplikasi ini menggunakan Room Database untuk menyimpan data pengingat dan AlarmManager untuk memberikan notifikasi tepat waktu.
+Smart Medicine Reminder adalah aplikasi Android yang membantu pengguna mengelola pengingat minum obat dengan fitur CRUD (Create, Read, Update, Delete). Aplikasi ini menggunakan SQLite Database untuk menyimpan data pengingat dan AlarmManager untuk memberikan notifikasi tepat waktu.
 
 # Gambar
 
