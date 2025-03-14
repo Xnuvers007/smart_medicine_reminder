@@ -1,28 +1,37 @@
 # Smart Medicine Reminder
 
-Smart Medicine Reminder adalah aplikasi Android yang membantu pengguna mengelola pengingat minum obat dengan fitur CRUD (Create, Read, Update, Delete). Aplikasi ini menggunakan SQLite Database untuk menyimpan data pengingat dan AlarmManager untuk memberikan notifikasi tepat waktu.
+![Home Screen](./gambar/homeScreen.jpg) ![Add Reminder](./gambar/addScreen.jpg)
 
-# Gambar
+## Overview
 
-![Home Screen](./gambar/homeScreen.jpg "Gambar Home Screen")
-![Add Reminder](./gambar/addScreen.jpg "Gambar Add Reminder")
+Smart Medicine Reminder adalah aplikasi Android yang membantu pengguna mengelola pengingat minum obat dengan fitur CRUD (Create, Read, Update, Delete). Aplikasi ini dirancang untuk memastikan pengguna tidak melewatkan jadwal minum obat mereka dengan menyediakan notifikasi yang tepat waktu.
 
 ## Fitur Utama
 
-- **Tambah Pengingat**: Pengguna dapat menambahkan pengingat obat dengan waktu dan dosis yang sesuai.
-- **Lihat Pengingat**: Daftar pengingat yang tersimpan dapat dilihat oleh pengguna.
-- **Edit Pengingat**: Pengguna dapat memperbarui informasi pengingat obat.
-- **Hapus Pengingat**: Pengingat yang tidak dibutuhkan dapat dihapus dari sistem.
-- **Notifikasi**: Aplikasi mengirimkan pemberitahuan ketika waktu minum obat tiba.
-- **Getar**: Menggetarkan Perangkat
+- ✅ **Tambah Pengingat** - Buat pengingat obat baru dengan waktu dan dosis yang spesifik
+- 🔔 **Notifikasi Tepat Waktu** - Dapatkan pengingat ketika waktu minum obat tiba
+- 📋 **Lihat Pengingat** - Akses daftar lengkap pengingat obat yang aktif
+- ✏️ **Edit Pengingat** - Perbarui informasi pengingat yang sudah ada
+- 🗑️ **Hapus Pengingat** - Buang pengingat yang tidak diperlukan
+- 📱 **Getar** - Perangkat bergetar saat notifikasi muncul
 
 ## Teknologi yang Digunakan
 
-- **Java**: Bahasa pemrograman utama aplikasi.
-- **Android Room Database**: Untuk menyimpan dan mengelola data pengingat obat.
-- **AlarmManager**: Untuk mengatur alarm dan mengirimkan notifikasi.
-- **BroadcastReceiver**: Untuk menangani alarm dan menampilkan notifikasi.
-- **Material Design**: Untuk tampilan UI yang modern dan user-friendly.
+- **Java** - Bahasa pemrograman utama
+- **Android Room Database** - Penyimpanan dan pengelolaan data
+- **AlarmManager** - Pengaturan alarm dan notifikasi
+- **BroadcastReceiver** - Penanganan alarm dan tampilan notifikasi
+- **Material Design** - UI yang modern dan user-friendly
+
+## Screenshot
+
+| Home Screen                             | Add Reminder Screen                     |
+|-----------------------------------------|-----------------------------------------|
+| ![Home Screen](./gambar/homeScreen.jpg) | ![Add Reminder](./gambar/addScreen.jpg) |
+
+## Persyaratan
+
+- Android 8.0 (Oreo) atau lebih tinggi (API Level 26+)
 
 ## Instalasi & Penggunaan
 
@@ -30,45 +39,48 @@ Smart Medicine Reminder adalah aplikasi Android yang membantu pengguna mengelola
    ```sh
    git clone https://github.com/Xnuvers007/smart_medicine_reminder.git
    ```
-2. Buka proyek di Android Studio.
-3. Pastikan SDK minimal yang didukung adalah **API 26 (Android 8.0 Oreo)**.
-4. Jalankan aplikasi di emulator atau perangkat fisik.
-5. Tambahkan pengingat dan coba fitur CRUD serta notifikasi.
+
+2. Buka proyek di Android Studio
+
+3. Build dan jalankan aplikasi di emulator atau perangkat fisik
+
+4. Mulai tambahkan pengingat obat Anda
 
 ## Struktur Proyek
 
 ```
 app/src/main/java/dev/indra/smartmedicinereminder/
-│-- AddEditMedicationActivity.java
-│-- AlarmHelper.java
-│-- BootReceiver.java
-│-- DatabaseHelper.java
-│-- MainActivity.java
-│-- Medication.java
-│-- MedicationAdapter.java
-│-- ReminderReceiver.java
+│-- AddEditMedicationActivity.java   # Menambah/mengedit pengingat
+│-- AlarmHelper.java                 # Utilitas untuk mengatur alarm
+│-- BootReceiver.java                # Menangani restart perangkat
+│-- DatabaseHelper.java              # Manajemen database SQLite
+│-- MainActivity.java                # Aktivitas utama aplikasi
+│-- Medication.java                  # Model data obat
+│-- MedicationAdapter.java           # Adapter untuk tampilan daftar
+│-- ReminderReceiver.java            # Menangani notifikasi pengingat
+│-- NotificationDismissReceiver.java # Menangani notifikasi ditutup
 ```
 
 ## Izin yang Digunakan
 
 Aplikasi ini memerlukan beberapa izin untuk berfungsi dengan baik:
 
-- **`POST_NOTIFICATIONS`**: Mengirim notifikasi ke pengguna.
-- **`RECEIVE_BOOT_COMPLETED`**: Memastikan alarm tetap aktif setelah reboot.
-- **`WAKE_LOCK`**: Memastikan alarm dapat membangunkan perangkat.
-- **`SCHEDULE_EXACT_ALARM`**: Menjadwalkan alarm dengan presisi tinggi.
-- **`VIBRATE`**: Menggetarkan Perangkat ke pengguna ketika notifikasi berhasil terkirim
+- `POST_NOTIFICATIONS` - Mengirim notifikasi ke pengguna
+- `RECEIVE_BOOT_COMPLETED` - Memastikan alarm tetap aktif setelah reboot
+- `WAKE_LOCK` - Memastikan alarm dapat membangunkan perangkat
+- `SCHEDULE_EXACT_ALARM` - Menjadwalkan alarm dengan presisi tinggi
+- `VIBRATE` - Menggetarkan perangkat saat notifikasi muncul
 
 ## Kontribusi
 
-Jika ingin berkontribusi pada proyek ini:
+Kontribusi Anda sangat dihargai! Berikut langkah-langkah untuk berkontribusi:
 
-1. Fork repository ini.
-2. Buat branch baru (`feature-branch`).
-3. Lakukan perubahan dan commit.
-4. Kirimkan pull request.
+1. Fork repository ini
+2. Buat branch baru (`git checkout -b feature/fitur-baru`)
+3. Commit perubahan Anda (`git commit -m 'Menambahkan fitur baru'`)
+4. Push ke branch (`git push origin feature/fitur-baru`)
+5. Buat Pull Request
 
 ## Lisensi
 
-Aplikasi ini dirilis di bawah lisensi **MIT**. Silakan lihat file `LICENSE` untuk detail lebih lanjut.
-
+Proyek ini dilisensikan di bawah [Lisensi MIT](LICENSE).

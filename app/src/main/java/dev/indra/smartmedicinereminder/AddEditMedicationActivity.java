@@ -69,9 +69,11 @@ public class AddEditMedicationActivity extends AppCompatActivity {
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
 
-        if (name.isEmpty()) {
+        if (name.isEmpty() || dosage.isEmpty()) {
             etName.setError("Please enter medication name");
             etName.requestFocus();
+            etDosage.setError("Please enter medication dosage");
+            etDosage.requestFocus();
             return;
         }
 

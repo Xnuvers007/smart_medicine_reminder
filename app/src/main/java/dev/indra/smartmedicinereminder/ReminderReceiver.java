@@ -40,21 +40,18 @@ public class ReminderReceiver extends BroadcastReceiver {
             return;
         }
 
-        // Acquire wake lock to keep device awake during alert
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK |
                 PowerManager.ACQUIRE_CAUSES_WAKEUP |
                 PowerManager.ON_AFTER_RELEASE, "smartmedicinereminder:wakelock");
-        wakeLock.acquire(10*60*1000L /*10 minutes*/);
+        wakeLock.acquire(10*60*1000L); // 10 minutes
 
         DatabaseHelper db = new DatabaseHelper(context);
         Medication medication = db.getMedication(medicationId);
 
         if (medication.isActive()) {
-            // Reset alarm for next day
             AlarmHelper.setAlarm(context, medication);
 
-            // Show notification and start persistent alerts
             showPersistentNotification(context, medicationName, medicationDosage, medicationId);
         }
     }
@@ -63,12 +60,10 @@ public class ReminderReceiver extends BroadcastReceiver {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Create high priority notification channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
 
-            // Configure channel for continuous alerts
             channel.setSound(null, null);
             channel.enableLights(true);
             channel.enableVibration(true);
@@ -79,12 +74,10 @@ public class ReminderReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
 
-        // Create intent for when notification is tapped
         Intent mainIntent = new Intent(context, MainActivity.class);
         PendingIntent mainPendingIntent = PendingIntent.getActivity(
                 context, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        // Create dismiss action intent
         Intent dismissIntent = new Intent(context, NotificationDismissReceiver.class);
         dismissIntent.putExtra("notification_id", (int) medicationId);
         dismissIntent.setAction("DISMISS_MEDICATION_" + medicationId);
@@ -92,7 +85,6 @@ public class ReminderReceiver extends BroadcastReceiver {
                 context, (int) medicationId, dismissIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        // Build the notification
         String title = "Waktunya Minum Obat!";
         String message = medicationName;
         if (medicationDosage != null && !medicationDosage.isEmpty()) {
@@ -107,8 +99,8 @@ public class ReminderReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setOngoing(true)  // Makes the notification persistent
-                .setSound(null)  // No sound in notification itself as we handle it separately
+                .setOngoing(true)
+                .setSound(null)
                 .setVibrate(VIBRATION_PATTERN)
                 .setContentIntent(mainPendingIntent)
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel, "Sudah Minum", dismissPendingIntent);
@@ -116,12 +108,10 @@ public class ReminderReceiver extends BroadcastReceiver {
         int notificationId = (int) medicationId;
         notificationManager.notify(notificationId, builder.build());
 
-        // Start continuous sound and vibration
         startPersistentAlerts(context, notificationId);
     }
 
     private void startPersistentAlerts(Context context, int notificationId) {
-        // Setup continuous vibration
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         if (vibrator != null && vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -131,7 +121,6 @@ public class ReminderReceiver extends BroadcastReceiver {
             }
         }
 
-        // Setup continuous sound
         try {
             Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
             if (alarmSound == null) {
@@ -161,23 +150,22 @@ public class ReminderReceiver extends BroadcastReceiver {
             mediaPlayer.start();
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Failed to play alarm sound");
         }
 
-        // Setup a repeating task to ensure the alarm stays active
         handler = new Handler();
         repeatingRunnable = new Runnable() {
             @Override
             public void run() {
-                // Restart sound if it stopped for some reason
                 if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
                     try {
                         mediaPlayer.start();
                     } catch (Exception e) {
                         e.printStackTrace();
+                        System.out.println("Failed to play alarm sound");
                     }
                 }
 
-                // Restart vibration if needed
                 if (vibrator != null) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         vibrator.vibrate(VibrationEffect.createWaveform(VIBRATION_PATTERN, 0));
@@ -186,23 +174,18 @@ public class ReminderReceiver extends BroadcastReceiver {
                     }
                 }
 
-                // Schedule this task to run again in 5 seconds
                 handler.postDelayed(this, 5000);
             }
         };
 
-        // Start the repeating task
         handler.postDelayed(repeatingRunnable, 5000);
     }
 
-    // Method to stop all alerts
     public static void stopAlerts(Context context, int notificationId) {
-        // Stop the repeating task
         if (handler != null && repeatingRunnable != null) {
             handler.removeCallbacks(repeatingRunnable);
         }
 
-        // Stop and release MediaPlayer
         if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
@@ -211,19 +194,16 @@ public class ReminderReceiver extends BroadcastReceiver {
             mediaPlayer = null;
         }
 
-        // Stop vibration
         if (vibrator != null) {
             vibrator.cancel();
             vibrator = null;
         }
 
-        // Release wake lock
         if (wakeLock != null && wakeLock.isHeld()) {
             wakeLock.release();
             wakeLock = null;
         }
 
-        // Cancel the notification
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(notificationId);
