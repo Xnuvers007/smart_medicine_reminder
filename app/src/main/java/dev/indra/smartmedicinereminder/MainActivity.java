@@ -2,10 +2,12 @@ package dev.indra.smartmedicinereminder;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,11 +33,26 @@ public class MainActivity extends AppCompatActivity implements MedicationAdapter
     private List<Medication> originalMedicationList;
     private DatabaseHelper db;
     private TextView tvEmpty;
+    private long backPressedTime;
+    private static final int TIME_INTERVAL = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (backPressedTime + TIME_INTERVAL > System.currentTimeMillis()) {
+                    finish(); // Menutup activity jika kembali ditekan
+                } else {
+                    Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+                }
+                backPressedTime = System.currentTimeMillis();
+            }
+        });
+
 
         db = new DatabaseHelper(this);
 
@@ -144,4 +161,47 @@ public class MainActivity extends AppCompatActivity implements MedicationAdapter
             AlarmHelper.cancelAlarm(this, (int) medication.getId());
         }
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        if (backPressedTime + TIME_INTERVAL > System.currentTimeMillis()) {
+//            super.onBackPressed();
+//            return;
+//        } else {
+//            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        backPressedTime = System.currentTimeMillis();
+//    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        db.close();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        db.close();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        db = new DatabaseHelper(this);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        db = new DatabaseHelper(this);
+    }
+
 }

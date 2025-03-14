@@ -69,12 +69,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Medication getMedication(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_MEDICATIONS, new String[] {
-                COLUMN_ID, COLUMN_NAME, COLUMN_DOSAGE, COLUMN_HOUR, COLUMN_MINUTE, COLUMN_ACTIVE, COLUMN_NOTES
-        }, COLUMN_ID + "=?", new String[] { String.valueOf(id) }, null, null, null);
+        String query = "SELECT * FROM " + TABLE_MEDICATIONS + " WHERE " + COLUMN_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
 
-        if (cursor != null)
-            cursor.moveToFirst();
+        cursor.moveToFirst();
 
         Medication medication = new Medication();
         medication.setId(cursor.getLong(0));
@@ -117,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return medicationList;
     }
 
-    public int updateMedication(Medication medication) {
+    public void updateMedication(Medication medication) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -128,8 +126,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ACTIVE, medication.isActive() ? 1 : 0);
         values.put(COLUMN_NOTES, medication.getNotes());
 
-        return db.update(TABLE_MEDICATIONS, values, COLUMN_ID + " = ?",
-                new String[] { String.valueOf(medication.getId()) });
+        db.update(TABLE_MEDICATIONS, values, COLUMN_ID + " = ?",
+                new String[]{String.valueOf(medication.getId())});
     }
 
     public void deleteMedication(long id) {
