@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements MedicationAdapter
     }
 
     private void filterMedications(String query) {
+        if (originalMedicationList == null || originalMedicationList.isEmpty()) {
+            return;
+        }
+
         List<Medication> filteredList = originalMedicationList.stream()
                 .filter(medication -> medication.getName().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
@@ -119,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements MedicationAdapter
         AlarmHelper.cancelAlarm(this, (int) medication.getId());
         db.deleteMedication(medication.getId());
         medicationList.remove(position);
+        originalMedicationList.remove(medication);
         adapter.notifyItemRemoved(position);
 
         if (medicationList.isEmpty()) {

@@ -16,7 +16,6 @@ public class AddEditMedicationActivity extends AppCompatActivity {
 
     private EditText etName, etDosage, etNotes;
     private TimePicker timePicker;
-    private Button btnSave;
 
     private DatabaseHelper db;
     private long medicationId = -1;
@@ -37,7 +36,7 @@ public class AddEditMedicationActivity extends AppCompatActivity {
         etDosage = findViewById(R.id.etDosage);
         etNotes = findViewById(R.id.etNotes);
         timePicker = findViewById(R.id.timePicker);
-        btnSave = findViewById(R.id.btnSave);
+        Button btnSave = findViewById(R.id.btnSave);
 
         timePicker.setIs24HourView(true);
 
