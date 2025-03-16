@@ -1,6 +1,19 @@
 # Smart Medicine Reminder
 
-![Home Screen](./gambar/homeScreen.jpg) ![Add Reminder](./gambar/addScreen.jpg)
+## Daftar Isi
+
+1. [Overview](#overview)
+2. [Fitur Utama](#fitur-utama)
+3. [Teknologi yang Digunakan](#teknologi-yang-digunakan)
+4. [Screenshot](#screenshot)
+5. [Persyaratan](#persyaratan)
+6. [Instalasi & Penggunaan](#instalasi--penggunaan)
+7. [Struktur Proyek](#struktur-proyek)
+8. [Izin yang Digunakan](#izin-yang-digunakan)
+9. [Kontribusi](#kontribusi)
+10. [Lisensi](#lisensi)
+11. [Daftar Pustaka](#daftar-pustaka)
+
 
 ## Overview
 
@@ -84,3 +97,23 @@ Kontribusi Anda sangat dihargai! Berikut langkah-langkah untuk berkontribusi:
 ## Lisensi
 
 Proyek ini dilisensikan di bawah [Lisensi MIT](LICENSE).
+
+## Daftar Pustaka
+
+1. **Android Documentation**  
+   - Android Developer. (2025). *Room Persistence Library*. Diakses dari [https://developer.android.com/topic/libraries/architecture/room](https://developer.android.com/topic/libraries/architecture/room)
+
+2. **AlarmManager Documentation**  
+   - Android Developer. (2025). *Scheduling your app's alarms*. Diakses dari [https://developer.android.com/reference/android/app/AlarmManager](https://developer.android.com/reference/android/app/AlarmManager)
+
+3. **BroadcastReceiver Documentation**  
+   - Android Developer. (2025). *Broadcast Receivers*. Diakses dari [https://developer.android.com/reference/android/content/BroadcastReceiver](https://developer.android.com/reference/android/content/BroadcastReceiver)
+
+4. **Material Design Guidelines**  
+   - Google. (2025). *Material Design*. Diakses dari [https://material.io/design](https://material.io/design)
+
+5. **Java Programming**  
+   - Oracle. (2025). *The Java™ Tutorials*. Diakses dari [https://docs.oracle.com/javase/tutorial/](https://docs.oracle.com/javase/tutorial/)
+
+6. **Android Notification**  
+   - Android Developer. (2025). *Notifications Overview*. Diakses dari [https://developer.android.com/training/notify-user](https://developer.android.com/training/notify-user)
