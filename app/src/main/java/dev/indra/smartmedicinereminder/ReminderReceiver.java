@@ -18,6 +18,8 @@ import android.os.VibrationEffect;
 
 import androidx.core.app.NotificationCompat;
 
+import java.util.Calendar;
+
 import dev.indra.smartmedicinereminder.db.DatabaseHelper;
 import dev.indra.smartmedicinereminder.model.Medication;
 
@@ -50,6 +52,12 @@ public class ReminderReceiver extends BroadcastReceiver {
         Medication medication = db.getMedication(medicationId);
 
         if (medication.isActive()) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, medication.getHour());
+            calendar.set(Calendar.MINUTE, medication.getMinute());
+            calendar.set(Calendar.SECOND, 0);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
             AlarmHelper.setAlarm(context, medication);
 
             showPersistentNotification(context, medicationName, medicationDosage, medicationId);

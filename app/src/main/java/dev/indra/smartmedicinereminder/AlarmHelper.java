@@ -43,11 +43,23 @@ public class AlarmHelper {
                             calendar.getTimeInMillis(),
                             pendingIntent
                     );
+                    alarmManager.setRepeating(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.getTimeInMillis(),
+                            AlarmManager.INTERVAL_DAY,
+                            pendingIntent
+                    );
                 }
             } else {
                 alarmManager.setExactAndAllowWhileIdle(
                         AlarmManager.RTC_WAKEUP,
                         calendar.getTimeInMillis(),
+                        pendingIntent
+                );
+                alarmManager.setRepeating(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        AlarmManager.INTERVAL_DAY,
                         pendingIntent
                 );
             }
