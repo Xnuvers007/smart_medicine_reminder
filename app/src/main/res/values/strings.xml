@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Smart Medicine Reminder</string>
+    <string name="app_name">Medicine Reminder</string>
     <string name="kelompok">Dibuat oleh Indra Dwi A. </string>
     <string name="medication_name">Medication Name (Nama Obat/Medis)</string>
     <string name="dosage">Dosage (Dosis)</string>
