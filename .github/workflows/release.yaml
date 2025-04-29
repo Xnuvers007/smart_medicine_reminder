@@ -80,4 +80,4 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
-          file: app/build/outputs/apk/release/*.apk
+          file: app/build/outputs/apk/release/**/*-signed.apk
