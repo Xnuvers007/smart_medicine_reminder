@@ -1,4 +1,4 @@
-package dev.indra.smartmedicinereminder.adapter;
+package dev.indra.smartmedicinereminder.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

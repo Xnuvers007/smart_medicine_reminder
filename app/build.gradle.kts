@@ -42,5 +42,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.work.runtime)
     implementation(libs.material.v160)
+    implementation(libs.work.runtime.v2101)
 //    implementation(libs.work.runtime)
 }

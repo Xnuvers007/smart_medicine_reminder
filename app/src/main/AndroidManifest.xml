@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SmartMedicineReminder"
+        android:theme="@style/AppTheme"
         tools:targetApi="31">
 
         <activity
@@ -34,17 +34,17 @@
             android:exported="false"
             android:parentActivityName=".MainActivity" />
 
-        <receiver android:name=".ReminderReceiver"
+        <receiver android:name=".receiver.ReminderReceiver"
             android:exported="false"/>
 
-        <receiver android:name=".BootReceiver"
+        <receiver android:name=".receiver.BootReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".NotificationDismissReceiver" android:exported="false" />
+        <receiver android:name=".receiver.NotificationDismissReceiver" android:exported="false" />
 
     </application>
 

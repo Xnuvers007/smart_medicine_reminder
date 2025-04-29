@@ -1,4 +1,4 @@
-package dev.indra.smartmedicinereminder;
+package dev.indra.smartmedicinereminder.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

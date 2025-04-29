@@ -1,4 +1,4 @@
-package dev.indra.smartmedicinereminder;
+package dev.indra.smartmedicinereminder.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,8 +6,9 @@ import android.content.Intent;
 
 import java.util.List;
 
-import dev.indra.smartmedicinereminder.db.DatabaseHelper;
-import dev.indra.smartmedicinereminder.model.Medication;
+import dev.indra.smartmedicinereminder.models.Medication;
+import dev.indra.smartmedicinereminder.database.DatabaseHelper;
+import dev.indra.smartmedicinereminder.utils.AlarmHelper;
 
 public class BootReceiver extends BroadcastReceiver {
     @Override

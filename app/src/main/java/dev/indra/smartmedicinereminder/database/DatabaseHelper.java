@@ -1,4 +1,4 @@
-package dev.indra.smartmedicinereminder.db;
+package dev.indra.smartmedicinereminder.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.indra.smartmedicinereminder.model.Medication;
+import dev.indra.smartmedicinereminder.models.Medication;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

@@ -1,4 +1,4 @@
-package dev.indra.smartmedicinereminder.model;
+package dev.indra.smartmedicinereminder.models;
 
 import java.io.Serializable;
 

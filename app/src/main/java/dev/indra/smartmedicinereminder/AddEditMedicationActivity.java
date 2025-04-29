@@ -5,12 +5,14 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import dev.indra.smartmedicinereminder.db.DatabaseHelper;
-import dev.indra.smartmedicinereminder.model.Medication;
+import com.google.android.material.snackbar.Snackbar;
+
+import dev.indra.smartmedicinereminder.database.DatabaseHelper;
+import dev.indra.smartmedicinereminder.models.Medication;
+import dev.indra.smartmedicinereminder.utils.AlarmHelper;
 
 public class AddEditMedicationActivity extends AppCompatActivity {
 
@@ -88,22 +90,27 @@ public class AddEditMedicationActivity extends AppCompatActivity {
             long id = db.addMedication(medication);
             medication.setId(id);
             AlarmHelper.setAlarm(this, medication);
-            Toast.makeText(this, "Medication added successfully", Toast.LENGTH_SHORT).show();
+
+            Snackbar.make(findViewById(android.R.id.content), "Medication added successfully", Snackbar.LENGTH_SHORT)
+                    .setAction("Kembali", v -> finish())
+                    .show();
         } else {
             db.updateMedication(medication);
             if (medication.isActive()) {
                 AlarmHelper.updateAlarm(this, medication);
             }
-            Toast.makeText(this, "Medication updated successfully", Toast.LENGTH_SHORT).show();
+
+            Snackbar.make(findViewById(android.R.id.content), "Medication updated successfully", Snackbar.LENGTH_SHORT)
+                    .setAction("Kembali", v -> finish())
+                    .show();
         }
 
-        finish();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-//            onBackPressed();
+            //            onBackPressed();
             finish();
             return true;
         }

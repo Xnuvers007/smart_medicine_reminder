@@ -1,5 +1,6 @@
-package dev.indra.smartmedicinereminder;
+package dev.indra.smartmedicinereminder.receiver;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,8 +20,11 @@ import androidx.core.app.NotificationCompat;
 
 import java.util.Calendar;
 
-import dev.indra.smartmedicinereminder.db.DatabaseHelper;
-import dev.indra.smartmedicinereminder.model.Medication;
+import dev.indra.smartmedicinereminder.MainActivity;
+import dev.indra.smartmedicinereminder.models.Medication;
+import dev.indra.smartmedicinereminder.R;
+import dev.indra.smartmedicinereminder.utils.AlarmHelper;
+import dev.indra.smartmedicinereminder.database.DatabaseHelper;
 
 public class ReminderReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "medicine_reminder_channel";
@@ -60,6 +64,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         notificationManager.cancel(notificationId);
     }
 
+    @SuppressLint("Wakelock")
     @Override
     public void onReceive(Context context, Intent intent) {
         long medicationId = intent.getLongExtra("medication_id", -1);
@@ -70,8 +75,10 @@ public class ReminderReceiver extends BroadcastReceiver {
         }
 
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |
-                        PowerManager.ON_AFTER_RELEASE, "smartmedicinereminder:wakelock");
+        wakeLock = powerManager.newWakeLock(
+                PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP,
+                "smartmedicinereminder:wakelock"
+        );
         wakeLock.acquire(10 * 60 * 1000L); // 10 minutes
 
         Medication medication;

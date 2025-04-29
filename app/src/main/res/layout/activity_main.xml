@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_surface"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/md_theme_surface"
         android:paddingHorizontal="16dp"
         android:paddingVertical="20dp"
         android:text="@string/kelompok"
-        android:textColor="@android:color/white"
+        android:textColor="@color/md_theme_primary"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,6 +75,6 @@
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@color/colorPrimary" />
+        app:backgroundTint="@color/md_theme_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

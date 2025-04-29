@@ -11,8 +11,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import dev.indra.smartmedicinereminder.db.DatabaseHelper;
-import dev.indra.smartmedicinereminder.model.Medication;
+import dev.indra.smartmedicinereminder.database.DatabaseHelper;
+import dev.indra.smartmedicinereminder.models.Medication;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

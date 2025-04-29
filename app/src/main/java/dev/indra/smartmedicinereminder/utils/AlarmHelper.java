@@ -1,4 +1,4 @@
-package dev.indra.smartmedicinereminder;
+package dev.indra.smartmedicinereminder.utils;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import java.util.Calendar;
+
+import dev.indra.smartmedicinereminder.models.Medication;
+import dev.indra.smartmedicinereminder.receiver.ReminderReceiver;
 
 public class AlarmHelper {
 

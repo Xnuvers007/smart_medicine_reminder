@@ -2,10 +2,12 @@ package dev.indra.smartmedicinereminder;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,20 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import dev.indra.smartmedicinereminder.adapter.MedicationAdapter;
-import dev.indra.smartmedicinereminder.db.DatabaseHelper;
-import dev.indra.smartmedicinereminder.model.Medication;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import java.util.stream.Collectors;
+
+import dev.indra.smartmedicinereminder.adapters.MedicationAdapter;
+import dev.indra.smartmedicinereminder.models.Medication;
+import dev.indra.smartmedicinereminder.utils.AlarmHelper;
+import dev.indra.smartmedicinereminder.database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity implements MedicationAdapter.OnMedicationListener {
 
+    private static final int TIME_INTERVAL = 2000;
     private RecyclerView recyclerView;
     private MedicationAdapter adapter;
     private List<Medication> medicationList;
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements MedicationAdapter
     private DatabaseHelper db;
     private TextView tvEmpty;
     private long backPressedTime;
-    private static final int TIME_INTERVAL = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements MedicationAdapter
                 if (backPressedTime + TIME_INTERVAL > System.currentTimeMillis()) {
                     finish(); // Menutup activity jika kembali ditekan
                 } else {
-                    Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(android.R.id.content), "Press back again to exit", Snackbar.LENGTH_SHORT).show();
                 }
                 backPressedTime = System.currentTimeMillis();
             }
@@ -70,7 +72,8 @@ public class MainActivity extends AppCompatActivity implements MedicationAdapter
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -78,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements MedicationAdapter
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         loadMedications();
@@ -162,17 +166,17 @@ public class MainActivity extends AppCompatActivity implements MedicationAdapter
         }
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        if (backPressedTime + TIME_INTERVAL > System.currentTimeMillis()) {
-//            super.onBackPressed();
-//            return;
-//        } else {
-//            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        backPressedTime = System.currentTimeMillis();
-//    }
+    //    @Override
+    //    public void onBackPressed() {
+    //        if (backPressedTime + TIME_INTERVAL > System.currentTimeMillis()) {
+    //            super.onBackPressed();
+    //            return;
+    //        } else {
+    //            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+    //        }
+    //
+    //        backPressedTime = System.currentTimeMillis();
+    //    }
 
     @Override
     protected void onDestroy() {
