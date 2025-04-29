@@ -26,10 +26,6 @@ public class AlarmHelper {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
-        if (alarmManager != null) {
-            alarmManager.cancel(pendingIntent);
-        }
-
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, medication.getHour());
         calendar.set(Calendar.MINUTE, medication.getMinute());
