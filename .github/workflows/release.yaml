@@ -68,7 +68,7 @@ jobs:
 
       - name: Rename APK files
         run: |
-          mv app/build/outputs/apk/release/app-release-unsigned-signed.apk app/build/outputs/apk/release/${{ env.playstore_name}}-${{ github.ref }}-signed.apk
+          mv app/build/outputs/apk/release/app-release-unsigned-signed.apk app/build/outputs/apk/release/${{ env.playstore_name}}-signed.apk
 
       - name: Upload signed APK(s) to release
         uses: svenstaro/upload-release-action@v2
@@ -76,7 +76,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           draft: true
           prerelease: true
-          release_name: ${{ env.playstore_name}} - v${{ github.ref }}
+          release_name: ${{ env.playstore_name}}
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
