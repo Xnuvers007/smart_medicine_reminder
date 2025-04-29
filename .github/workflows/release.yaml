@@ -76,7 +76,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           draft: true
           prerelease: true
-          release_name: ${{ env.playstore_name}} - ${{ env.timestamp }}
+          release_name: ${{ env.playstore_name}} - v${{ github.ref }}
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
