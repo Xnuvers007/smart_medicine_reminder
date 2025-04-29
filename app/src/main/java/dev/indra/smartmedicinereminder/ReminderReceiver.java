@@ -83,15 +83,25 @@ public class ReminderReceiver extends BroadcastReceiver {
         }
 
         Intent mainIntent = new Intent(context, MainActivity.class);
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags |= PendingIntent.FLAG_IMMUTABLE;
+        }
+
+//        PendingIntent mainPendingIntent = PendingIntent.getActivity(
+//                context, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         PendingIntent mainPendingIntent = PendingIntent.getActivity(
-                context, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                context, 0, mainIntent, flags);
 
         Intent dismissIntent = new Intent(context, NotificationDismissReceiver.class);
         dismissIntent.putExtra("notification_id", (int) medicationId);
         dismissIntent.setAction("DISMISS_MEDICATION_" + medicationId);
+
+//        PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(
+//                context, (int) medicationId, dismissIntent,
+//                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(
-                context, (int) medicationId, dismissIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                context, (int) medicationId, dismissIntent, flags);
 
         String title = "Waktunya Minum Obat!";
         String message = medicationName;
